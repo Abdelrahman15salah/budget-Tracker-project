@@ -1,0 +1,55 @@
+<div class="income-container">
+  <h2>Income List</h2>
+  <ul>
+    <li *ngFor="let income of incomes">
+      <div class="income-item">
+        <div class="income-details">
+          <p><strong>Source:</strong> {{ income.source }}</p>
+          <p><strong>Amount:</strong> ${{ income.amount }}</p>
+          <p><strong>Date:</strong> {{ income.date }}</p>
+        </div>
+        <button class="delete-btn" (click)="deleteIncome(income._id)">
+          Delete
+        </button>
+        <button class="edit-btn" (click)="editIncome(income)">Edit</button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="add-income">
+    <button class="add-btn" (click)="showAddIncomeModal = true">
+      Add Income
+    </button>
+  </div>
+
+  <div *ngIf="showAddIncomeModal" class="modal">
+    <div class="modal-content">
+      <h3>{{ editMode ? "Edit Income" : "Add New Income" }}</h3>
+      <form (ngSubmit)="addIncome()">
+        <label for="source">Source:</label>
+        <input
+          type="text"
+          [(ngModel)]="newIncome.source"
+          name="source"
+          required
+        />
+
+        <label for="amount">Amount:</label>
+        <input
+          type="number"
+          [(ngModel)]="newIncome.amount"
+          name="amount"
+          required
+        />
+
+        <label for="date">Date:</label>
+        <input type="date" [(ngModel)]="newIncome.date" name="date" required />
+
+        <button type="submit">
+          {{ editMode ? "Update Income" : "Add Income" }}
+        </button>
+        <button type="button" (click)="resetForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

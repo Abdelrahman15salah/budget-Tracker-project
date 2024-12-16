@@ -1,0 +1,32 @@
+<nav class="navbar">
+  <ul class="nav-links">
+    <li *ngIf="!isLoggedIn">
+      <a routerLink="/register" class="nav-link">Register</a>
+    </li>
+    <li *ngIf="!isLoggedIn">
+      <a routerLink="/login" class="nav-link">Login</a>
+    </li>
+
+    <li *ngIf="isLoggedIn">
+      <a routerLink="/dashboard" class="nav-link">Dashboard</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a routerLink="/goals" class="nav-link">Goals</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a routerLink="/income" class="nav-link">Income</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a routerLink="/expenses" class="nav-link">Expenses</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a routerLink="/budget" class="nav-link">Budget</a>
+    </li>
+  </ul>
+
+  <div class="sign-out-container">
+    <ul *ngIf="isLoggedIn">
+      <a (click)="signOut()" class="nav-link sign-out">Sign Out</a>
+    </ul>
+  </div>
+</nav>

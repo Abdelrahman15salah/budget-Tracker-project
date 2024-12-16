@@ -1,0 +1,139 @@
+/* Goals Container */
+.goals-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 30px auto;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.goals-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #34495e;
+  font-weight: bold;
+}
+
+/* Loading State */
+.goals-container p {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+/* Goals List Styling */
+.goals-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.goal-item {
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.goal-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.goal-item div {
+  color: #34495e;
+}
+
+.goal-item strong {
+  color: #2980b9;
+  font-weight: bold;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Add Goal Form */
+.goal-form {
+  background-color: #fff;
+  padding: 25px;
+  margin-top: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.goal-form h3 {
+  font-size: 2rem;
+  color: #2980b9;
+  margin-bottom: 20px;
+}
+
+.goal-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.goal-form input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.goal-form input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.goal-form button {
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.goal-form button:hover {
+  background-color: #2980b9;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .goals-container {
+    padding: 20px;
+  }
+
+  .goal-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete-btn {
+    margin-top: 10px;
+  }
+}

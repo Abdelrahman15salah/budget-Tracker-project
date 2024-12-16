@@ -1,0 +1,218 @@
+/* Global Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(120deg, #d4fc79, #96e6a1);
+  margin: 0;
+  padding: 0;
+  color: #34495e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Income Container */
+.income-container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  position: relative;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 25px;
+  text-transform: capitalize;
+}
+
+/* Income Item */
+.income-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.income-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.income-details {
+  flex: 1;
+  font-size: 16px;
+  color: #34495e;
+}
+
+.income-details p {
+  margin: 6px 0;
+}
+
+.income-details strong {
+  color: #16a085;
+}
+
+.delete-btn,
+.edit-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  margin-left: 10px;
+}
+
+.edit-btn {
+  background-color: #3498db;
+}
+
+.delete-btn:hover,
+.edit-btn:hover {
+  opacity: 0.9;
+}
+
+.delete-btn:focus,
+.edit-btn:focus {
+  outline: none;
+}
+
+/* Add Income Section */
+.add-income {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.add-btn {
+  background-color: #27ae60;
+  color: #fff;
+  padding: 12px 30px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #2ecc71;
+  transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 500px;
+  max-width: 90%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h3 {
+  color: #2980b9;
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.modal-content input {
+  padding: 12px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus {
+  border-color: #3498db;
+}
+
+.modal-content button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content button[type="button"] {
+  background-color: #e74c3c;
+  margin-top: 10px;
+}
+
+.modal-content button:hover {
+  background-color: #2980b9;
+}
+
+.modal-content button[type="button"]:hover {
+  background-color: #c0392b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .income-container {
+    width: 95%;
+  }
+
+  .modal-content {
+    width: 85%;
+  }
+
+  .add-income {
+    margin-top: 20px;
+  }
+
+  .add-btn {
+    width: 100%;
+    font-size: 16px;
+  }
+}

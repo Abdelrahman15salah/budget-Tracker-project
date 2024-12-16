@@ -1,0 +1,66 @@
+<div class="expenses-container">
+  <h2>Expense List</h2>
+  <ul>
+    <li *ngFor="let expense of expenses">
+      <div class="expense-item">
+        <div class="expense-details">
+          <p><strong>Category:</strong> {{ expense.category }}</p>
+          <p><strong>Amount:</strong> ${{ expense.amount }}</p>
+          <p><strong>Date:</strong> {{ expense.date | date : "shortDate" }}</p>
+        </div>
+        <button class="edit-btn" (click)="editExpense(expense)">Edit</button>
+        <button class="delete-btn" (click)="deleteExpense(expense._id)">
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+
+  <div class="add-expense">
+    <button
+      class="add-btn"
+      (click)="showAddExpenseModal = !showAddExpenseModal"
+    >
+      Add Expense
+    </button>
+  </div>
+  <div *ngIf="showAddExpenseModal" class="modal">
+    <div class="modal-content">
+      <h3>{{ editMode ? "Edit Expense" : "Add New Expense" }}</h3>
+      <form (ngSubmit)="addExpense()">
+        <label for="category">Category:</label>
+        <input
+          type="text"
+          [(ngModel)]="newExpense.category"
+          name="category"
+          required
+        />
+
+        <label for="amount">Amount:</label>
+        <input
+          type="number"
+          [(ngModel)]="newExpense.amount"
+          name="amount"
+          required
+        />
+
+        <label for="date">Date:</label>
+        <input type="date" [(ngModel)]="newExpense.date" name="date" required />
+
+        <!-- Show warning message below the form if it exceeds the budget -->
+        <div *ngIf="showWarningMessage" class="warning-message">
+          <p>{{ warningMessage }}</p>
+          <button type="button" (click)="confirmAddExpense()">Confirm</button>
+          <button type="button" (click)="cancelAddExpense()">Cancel</button>
+        </div>
+
+        <button *ngIf="!showWarningMessage" type="submit">
+          {{ editMode ? "Update Expense" : "Add Expense" }}
+        </button>
+        <button type="button" (click)="showAddExpenseModal = false">
+          Cancel
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

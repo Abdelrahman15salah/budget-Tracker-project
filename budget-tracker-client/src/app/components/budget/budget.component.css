@@ -1,0 +1,235 @@
+/* General Layout */
+.budget-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    color: #222;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Button Styles */
+.btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+/* Budget List */
+.budget-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+
+.budget-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    width: calc(33% - 25px);
+    padding: 25px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.budget-item:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.budget-info {
+    margin-bottom: 20px;
+}
+
+.budget-info h3 {
+    font-size: 1.6rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.budget-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.budget-info li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 35px;
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    font-size: 2rem;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1rem;
+    color: #444;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.5);
+}
+
+input[type="text"], input[type="number"] {
+    margin-bottom: 20px;
+}
+
+/* Category Items */
+.category-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.category-item input {
+    flex: 1;
+}
+
+.category-item button {
+    flex-shrink: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .budget-item {
+        width: calc(50% - 20px);
+    }
+
+    .modal-content {
+        padding: 25px;
+    }
+
+    .budget-container {
+        margin: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .budget-item {
+        width: 100%;
+    }
+
+    .modal-content {
+        padding: 20px;
+    }
+
+    .btn {
+        font-size: 0.85rem;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+}

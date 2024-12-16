@@ -1,0 +1,54 @@
+<div class="goals-container">
+  <h2>Manage Savings Goals</h2>
+
+  <!-- Show loading message -->
+  <div *ngIf="isLoading">
+    <p>Loading...</p>
+  </div>
+
+  <!-- No Goals Message -->
+  <div *ngIf="!isLoading && goals.length === 0">
+    <p>No savings goals added yet.</p>
+  </div>
+
+  <!-- Goals List -->
+  <div *ngIf="!isLoading && goals.length > 0">
+    <ul class="goals-list">
+      <li *ngFor="let goal of goals" class="goal-item">
+        <div>
+          <strong>Goal Name:</strong> {{ goal.name }}<br />
+          <strong>Target:</strong> ₤{{ goal.targetAmount }}<br />
+          <strong>Deadline:</strong> {{ goal.deadline | date }}
+        </div>
+        <button (click)="deleteGoal(goal._id)" class="delete-btn">
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Add Goal Form -->
+  <h3>Add New Goal</h3>
+  <form (ngSubmit)="addGoal()" class="goal-form">
+    <label for="name">Goal Name</label>
+    <input type="text" [(ngModel)]="newGoal.name" name="name" required />
+
+    <label for="targetAmount">Target Amount</label>
+    <input
+      type="number"
+      [(ngModel)]="newGoal.targetAmount"
+      name="targetAmount"
+      required
+    />
+
+    <label for="deadline">Deadline</label>
+    <input
+      type="date"
+      [(ngModel)]="newGoal.deadline"
+      name="deadline"
+      required
+    />
+
+    <button type="submit" class="add-btn">Add Goal</button>
+  </form>
+</div>

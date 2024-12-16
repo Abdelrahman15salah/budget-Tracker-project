@@ -1,0 +1,100 @@
+/* Navbar Styling */
+.navbar {
+  background-color: #2c3e50;
+  position: fixed; /* Fix the navbar at the top */
+  top: 0; /* Align it to the top of the screen */
+  left: 0;
+  right: 0;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure navbar stays above other content */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth background and shadow transition */
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li {
+  margin-right: 20px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #ecf0f1;
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase; /* Added uppercase for a more modern look */
+  letter-spacing: 1px; /* Added spacing for a cleaner appearance */
+  transition: color 0.3s ease, transform 0.2s ease, letter-spacing 0.2s ease;
+}
+
+.navbar a:hover {
+  color: #3498db;
+  transform: scale(1.1); /* Hover effect */
+  letter-spacing: 1.5px; /* Add more spacing on hover for effect */
+}
+
+.navbar .sign-out {
+  color: #e74c3c;
+  font-weight: 600;
+}
+
+.navbar .sign-out:hover {
+  color: #c0392b;
+  transform: scale(1.05);
+}
+
+.navbar a:active {
+  color: #2980b9;
+}
+
+/* Flexbox for right-aligning sign out */
+.navbar .nav-links {
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 1;
+}
+
+.navbar .sign-out-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: auto;
+  cursor: pointer;
+  align-items: center;
+}
+
+/* Advanced Sticky Navbar with Scroll Effects */
+.navbar.sticky {
+  background-color: #34495e; /* Slightly darker when scrolling */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More shadow on scroll */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navbar li {
+    margin-right: 0;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .navbar .sign-out-container {
+    margin-top: 15px;
+  }
+}

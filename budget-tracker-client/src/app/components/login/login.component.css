@@ -1,0 +1,154 @@
+/* General Styling for Login Container */
+.login-container {
+  background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+  border-radius: 15px;
+  padding: 40px;
+  max-width: 450px;
+  margin: 80px auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  color: #fff;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+ 
+}
+
+.login-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Form Styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Error Messages */
+.error-message {
+  font-size: 0.9rem;
+  color: #e74c3c;
+  text-align: left;
+}
+
+/* Input Fields */
+form label {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+  text-align: left;
+}
+
+form input {
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
+  color: #333;
+}
+
+form input:focus {
+  background-color: #f7f7f7;
+  border: 2px solid #3498db;
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+  transform: scale(1.02);
+}
+
+/* Error Border for Invalid Inputs */
+form input.input-error {
+  background-color: #fdecea;
+  border: 2px solid #e74c3c;
+}
+
+/* Submit Button Styling */
+button {
+  padding: 14px;
+  font-size: 1.2rem;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+button:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
+
+/* Dynamic Validation Styles */
+form input.ng-touched.ng-invalid {
+  background-color: #fdecea;
+  border-color: #e74c3c;
+}
+
+form input.ng-touched.ng-valid {
+  background-color: #eafaf1;
+  border-color: #2ecc71;
+}
+
+/* Additional Animation for Inputs */
+form input {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+form input.ng-pristine {
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+form input.ng-dirty.ng-valid {
+  border-color: #2ecc71;
+}
+
+form input.ng-dirty.ng-invalid {
+  border-color: #e74c3c;
+}
+
+/* Focus animation for input fields */
+form input:focus {
+  transform: scale(1.02); /* Slight zoom effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 30px;
+    margin: 50px auto;
+  }
+
+  .login-container h2 {
+    font-size: 2rem;
+  }
+
+  button {
+    font-size: 1.1rem;
+  }
+}

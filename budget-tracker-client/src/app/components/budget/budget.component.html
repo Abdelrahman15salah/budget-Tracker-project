@@ -1,0 +1,99 @@
+<div class="budget-container">
+  <h1>Budget Management</h1>
+
+  <!-- Button to open the modal for adding a new budget -->
+  <button (click)="showAddBudgetModal = true" class="btn btn-primary">
+    Add Budget
+  </button>
+
+  <!-- Budget List -->
+  <div class="budget-list">
+    <div *ngFor="let budget of budgets" class="budget-item">
+      <div class="budget-info">
+        <h3>{{ budget.month }} Budget</h3>
+        <ul>
+          <li *ngFor="let category of budget.categories">
+            {{ category.name }}: ${{ category.limit }}
+          </li>
+        </ul>
+      </div>
+      <!-- Edit and Delete Buttons -->
+      <button (click)="editBudget(budget)" class="btn btn-warning">Edit</button>
+      <button (click)="deleteBudget(budget._id)" class="btn btn-danger">
+        Delete
+      </button>
+    </div>
+  </div>
+
+  <!-- Add/Edit Budget Modal -->
+  <div *ngIf="showAddBudgetModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>{{ editMode ? "Edit Budget" : "Add Budget" }}</h2>
+
+      <!-- Budget Form -->
+      <form (ngSubmit)="addBudget()">
+        <div class="form-group">
+          <label for="month">Month</label>
+          <select
+            id="month"
+            [(ngModel)]="newBudget.month"
+            name="month"
+            class="form-control"
+            required
+          >
+            <option *ngFor="let month of months" [value]="month">
+              {{ month }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="categories">Categories</label>
+          <div *ngFor="let category of newBudget.categories; let i = index">
+            <div class="category-item">
+              <input
+                type="text"
+                [(ngModel)]="category.name"
+                name="categoryName{{ i }}"
+                placeholder="Category Name"
+                class="form-control"
+                required
+              />
+              <input
+                type="number"
+                [(ngModel)]="category.limit"
+                name="categoryLimit{{ i }}"
+                placeholder="Category Limit"
+                class="form-control"
+                required
+              />
+              <button
+                (click)="removeCategory(i)"
+                type="button"
+                class="btn btn-danger"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+          <button (click)="addCategory()" type="button" class="btn btn-info">
+            Add Category
+          </button>
+        </div>
+
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-primary">
+            {{ editMode ? "Save Changes" : "Add Budget" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

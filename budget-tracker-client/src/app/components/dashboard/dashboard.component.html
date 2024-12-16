@@ -1,0 +1,168 @@
+<div class="dashboard-container">
+  <h2>Welcome to Your Dashboard</h2>
+
+  <!-- Financial Overview Section -->
+  <div class="overview">
+    <h3>Financial Overview</h3>
+
+    <div class="charts">
+      <!-- Income Chart -->
+      <div class="chart">
+        <h4>Income</h4>
+        <p-chart
+          type="pie"
+          [data]="incomeChartData"
+          [options]="chartOptions"
+          *ngIf="incomeChartData"
+        ></p-chart>
+        <p *ngIf="!income || income.length === 0">No income to show.</p>
+      </div>
+
+      <!-- Expenses Chart -->
+      <div class="chart">
+        <h4>Expenses</h4>
+        <p-chart
+          type="pie"
+          [data]="expenseChartData"
+          [options]="chartOptions"
+          *ngIf="expenseChartData"
+        ></p-chart>
+        <p *ngIf="!expenses || expenses.length === 0">No expenses to show.</p>
+      </div>
+
+      <!-- <div class="chart">
+        <h4>Budget Overview</h4>
+        <p-chart
+          type="pie"
+          [data]="budgetChartData"
+          [options]="chartOptions"
+          *ngIf="budgetChartData"
+        ></p-chart>
+        <p *ngIf="!budget || budget.length === 0">No budget data to show.</p>
+
+         Display status for each category 
+    
+        <div *ngFor="let budgetItem of budget">
+          <div class="category-status">
+            <p>
+              {{ budgetItem.category }} -
+              <span
+                [ngClass]="{
+                  exceeded: categoryStatus[budgetItem.category] === 'Exceeded',
+                  under: categoryStatus[budgetItem.category] === 'Under',
+                  'on-budget':
+                    categoryStatus[budgetItem.category] === 'On Budget'
+                }"
+              >
+                {{ categoryStatus[budgetItem.category] }}
+              </span>
+            </p>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Savings Goal Progress -->
+      <div class="chart">
+        <h4>Savings Goal Progress</h4>
+        <p *ngIf="savingsGoal > 0">
+          <strong>{{ savingsGoalName || "Your Goal" }}</strong>
+        </p>
+        <div class="custom-progress-container" *ngIf="savingsGoalProgress > 0">
+          <div class="progress-details">
+            <p-progressBar
+              [value]="savingsGoalProgress"
+              [max]="100"
+              class="custom-progress-bar"
+              tooltip="Current: {{ totalIncome - totalExpenses | currency }}, 
+                      Target: {{ savingsGoal | currency }}, 
+                      Remaining: {{
+                savingsGoal - (totalIncome - totalExpenses) | currency
+              }}"
+              tooltipPosition="top"
+            ></p-progressBar>
+            <span class="progress-text">
+              {{ savingsGoalProgress.toFixed(2) }}% ({{
+                totalIncome - totalExpenses | currency
+              }}
+              of {{ savingsGoal | currency }})
+            </span>
+          </div>
+          <button
+            *ngIf="savingsGoalProgress === 100"
+            pButton
+            label="Finish Goal"
+            (click)="finishGoal()"
+            [disabled]="savingsGoalProgress < 100"
+          ></button>
+        </div>
+        <p *ngIf="savingsGoalProgress === 0">
+          No savings goal set or no progress made.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Section -->
+  <section class="report-section">
+    <h3>Generate Financial Report</h3>
+    <button pButton label="Generate Report" (click)="generateReport()"></button>
+
+    <!-- Report Summary -->
+    <div *ngIf="report" class="report-summary">
+      <h4>Report Summary</h4>
+
+      <!-- Financial Metrics -->
+      <div class="report-metrics">
+        <div class="metric">
+          <h5>Total Income</h5>
+          <p>{{ report.totalIncome | currency }}</p>
+        </div>
+        <div class="metric">
+          <h5>Total Expenses</h5>
+          <p>{{ report.totalExpenses | currency }}</p>
+        </div>
+        <div class="metric">
+          <h5>Income vs Expenses</h5>
+          <p
+            [ngClass]="{
+              positive: report.incomeVsExpenses >= 0,
+              negative: report.incomeVsExpenses < 0
+            }"
+          >
+            {{ report.incomeVsExpenses | currency }}
+          </p>
+        </div>
+        <div class="metric">
+          <h5>Savings Progress</h5>
+          <p>{{ report.savingsProgress }}%</p>
+          <p-progressBar
+            [value]="report.savingsProgress"
+            [max]="100"
+          ></p-progressBar>
+        </div>
+        <div class="metric">
+          <h5>Budget Variance</h5>
+          <p
+            [ngClass]="{
+              positive: report.budgetVariance >= 0,
+              negative: report.budgetVariance < 0
+            }"
+          >
+            {{ report.budgetVariance | currency }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Chart: Income vs Expenses -->
+      <div class="chart-container">
+        <h4>Income vs Expenses Overview</h4>
+        <p-chart
+          type="bar"
+          [data]="chartData"
+          [options]="chartOptions"
+          *ngIf="chartData"
+        ></p-chart>
+      </div>
+    </div>
+  </section>
+</div>

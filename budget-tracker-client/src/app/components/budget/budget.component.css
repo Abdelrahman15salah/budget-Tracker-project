@@ -171,9 +171,6 @@ input, select {
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-input[type="number"] {
-    -moz-appearance: textfield;
-}
 
 input:focus, select:focus {
     outline: none;

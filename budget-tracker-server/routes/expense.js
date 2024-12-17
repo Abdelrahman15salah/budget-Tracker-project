@@ -19,7 +19,7 @@ const authenticate = (req, res, next) => {
 };
 
 router.post('/add', authenticate, async (req, res) => {
-  const { category, amount, description ,date } = req.body;
+  const { category, amount, description ,date ,isRecurring } = req.body;
 
   if (!category || !amount) {
     return res.status(400).json({ message: 'Category and amount are required' });
@@ -31,7 +31,8 @@ router.post('/add', authenticate, async (req, res) => {
       category,
       amount,
       description,
-      date
+      date,
+      isRecurring
     });
 
     await expense.save();
@@ -52,7 +53,7 @@ router.get('/', authenticate, async (req, res) => {
 });
 router.put('/edit/:id', authenticate, async (req, res) => {
   const { id } = req.params; // Expense ID from the route parameter
-  const { category, amount, description } = req.body; // Fields to update
+  const { category, amount, description ,isRecurring } = req.body; // Fields to update
 
   // Validate input
   if (!category && !amount && !description) {
@@ -69,6 +70,7 @@ router.put('/edit/:id', authenticate, async (req, res) => {
     if (category) expense.category = category;
     if (amount) expense.amount = amount;
     if (description) expense.description = description;
+    if (isRecurring) expense.isRecurring = isRecurring;
     // Save the updated expense
     const updatedExpense = await expense.save();
     res.json({ message: 'Expense updated successfully', expense: updatedExpense });

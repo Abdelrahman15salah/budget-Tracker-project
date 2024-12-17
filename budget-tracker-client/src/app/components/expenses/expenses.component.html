@@ -21,6 +21,10 @@
           <p><strong>Category:</strong> {{ expense.category }}</p>
           <p><strong>Amount:</strong> ${{ expense.amount }}</p>
           <p><strong>Date:</strong> {{ expense.date | date : "shortDate" }}</p>
+          <p>
+            <strong>Recurring:</strong> {{ expense.isRecurring ? "Yes" : "No" }}
+          </p>
+          <!-- Recurring status added here -->
         </div>
         <div class="expense-actions">
           <button class="edit-btn" (click)="editExpense(expense)">Edit</button>
@@ -64,6 +68,14 @@
 
         <label for="date">Date:</label>
         <input type="date" [(ngModel)]="newExpense.date" name="date" required />
+
+        <!-- Checkbox for recurring expense -->
+        <label for="isRecurring">Recurring:</label>
+        <input
+          type="checkbox"
+          [(ngModel)]="newExpense.isRecurring"
+          name="isRecurring"
+        />
 
         <div *ngIf="showWarningMessage" class="warning-message">
           <p>{{ warningMessage }}</p>

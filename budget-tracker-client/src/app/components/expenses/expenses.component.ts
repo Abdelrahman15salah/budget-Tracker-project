@@ -10,10 +10,11 @@ import { BudgetService } from '../../services/budget.service';
 })
 export class ExpensesComponent implements OnInit {
   expenses: any[] = [];
-  newExpense: { amount: number; category: string; date: string | Date; _id?: string } = {
+  newExpense: { amount: number; category: string; date: string | Date; _id?: string; isRecurring: boolean } = {
     amount: 0,
     category: '',
     date: new Date().toISOString().split('T')[0],
+    isRecurring: false,  // Set default value to true for monthly recurring
   };
   sortKey: string = 'category'; 
   sortDirection: 'asc' | 'desc' = 'asc'; 
@@ -128,6 +129,7 @@ export class ExpensesComponent implements OnInit {
     this.editMode = true;
     this.newExpense = { ...expense };
     this.newExpense.date = this.formatDate(this.newExpense.date);
+    this.newExpense.isRecurring = true; // Ensure it's monthly for editing
   }
 
   deleteExpense(id: string) {
@@ -149,14 +151,13 @@ export class ExpensesComponent implements OnInit {
       amount: 0,
       category: '',
       date: new Date().toISOString().split('T')[0],
+      isRecurring: false, // Always reset this to true for monthly recurring expenses
     };
     this.editMode = false;
     this.showAddExpenseModal = false;
     this.showWarningMessage = false;
     this.allowAddExpense = false;
-  }
-
-  getMonthFromDate(date: string | Date): string {
+  }  getMonthFromDate(date: string | Date): string {
     const d = new Date(date);
     const months = [
       'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'

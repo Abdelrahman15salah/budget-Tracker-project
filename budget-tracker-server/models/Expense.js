@@ -11,6 +11,7 @@ const ExpenseSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
   description: { type: String, default: '' },
   date: { type: Date, default: Date.now }, 
+  isRecurring: { type: Boolean, default: false}
 });
 
 module.exports = mongoose.model('Expense', ExpenseSchema);

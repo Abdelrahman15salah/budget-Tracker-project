@@ -49,6 +49,11 @@
       required
     />
 
+    <!-- Red Alert for invalid deadline -->
+    <div *ngIf="isDeadlineInvalid()" class="alert alert-danger">
+      You cannot set a goal date that has already passed.
+    </div>
+
     <button type="submit" class="add-btn">Add Goal</button>
   </form>
 </div>

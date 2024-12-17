@@ -121,7 +121,15 @@
 .goal-form button:hover {
   background-color: #2980b9;
 }
-
+.alert {
+  margin: 10px 0;
+  padding: 10px;
+  color: #fff;
+  background-color: #dc3545; /* Red background */
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
 /* Responsive Layout */
 @media (max-width: 768px) {
   .goals-container {

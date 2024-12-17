@@ -11,6 +11,7 @@ export class GoalsComponent implements OnInit {
   goals: any[] = []; // List of goals
   newGoal = { name: '', targetAmount: 0, deadline: '' }; // Form for adding a goal
   isLoading = true;
+new: any;
 
   constructor(private goalService: GoalService) {}
 
@@ -34,12 +35,20 @@ export class GoalsComponent implements OnInit {
 
   // Add a new goal
   addGoal() {
+    const today = new Date();
+    const selectedDate = new Date(this.newGoal.deadline);
+  
+    // Check if the deadline is in the past
+    if (selectedDate < today) {
+      alert('You cannot set a goal date that has already passed.');
+      return;
+    }
+  
     if (!this.newGoal.name || !this.newGoal.targetAmount || !this.newGoal.deadline) {
       alert('Please fill in all fields.');
       return;
-
     }
-
+  
     this.goalService.addGoal(this.newGoal).subscribe(
       (goal) => {
         this.goals.push(goal); // Add the new goal to the list
@@ -52,7 +61,6 @@ export class GoalsComponent implements OnInit {
       }
     );
   }
-
   // Delete a goal
   deleteGoal(goalId: string): void {
     if (!goalId) {
@@ -68,5 +76,12 @@ export class GoalsComponent implements OnInit {
         console.error('Error deleting goal:', error);
       }
     });
+  }
+  isDeadlineInvalid(): boolean {
+    if (!this.newGoal.deadline) return false; // If no date is selected
+    const selectedDate = new Date(this.newGoal.deadline);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Reset time for accurate comparison
+    return selectedDate < today;
   }
 }

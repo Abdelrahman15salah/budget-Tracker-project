@@ -1,5 +1,14 @@
 <div class="income-container">
   <h2>Income List</h2>
+  <!-- Sort Options Dropdown -->
+  <div class="sort-container">
+    <label for="sort">Sort by:</label>
+    <select id="sort" [(ngModel)]="sortOption" (change)="sortIncomes()">
+      <option value="name">Name</option>
+      <option value="date">Date</option>
+      <option value="amount">Amount</option>
+    </select>
+  </div>
   <ul>
     <li *ngFor="let income of incomes">
       <div class="income-item">

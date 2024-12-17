@@ -1,5 +1,22 @@
 <div class="expenses-container">
   <h2>Expense List</h2>
+
+  <!-- Sort Options as Dropdown -->
+  <div class="sort-options">
+    <label for="sort-by">Sort by: </label>
+    <select id="sort-by" [(ngModel)]="sortKey" (change)="sortExpenses()">
+      <option value="category">Category</option>
+      <option value="amount">Amount</option>
+      <option value="date">Date</option>
+    </select>
+
+    <!-- Sort Direction Toggle -->
+    <button (click)="toggleSortDirection()">
+      {{ sortDirection === "asc" ? "Sort Descending" : "Sort Ascending" }}
+    </button>
+  </div>
+
+  <!-- Expense List -->
   <ul>
     <li *ngFor="let expense of expenses">
       <div class="expense-item">
@@ -8,14 +25,17 @@
           <p><strong>Amount:</strong> ${{ expense.amount }}</p>
           <p><strong>Date:</strong> {{ expense.date | date : "shortDate" }}</p>
         </div>
-        <button class="edit-btn" (click)="editExpense(expense)">Edit</button>
-        <button class="delete-btn" (click)="deleteExpense(expense._id)">
-          Delete
-        </button>
+        <div class="expense-actions">
+          <button class="edit-btn" (click)="editExpense(expense)">Edit</button>
+          <button class="delete-btn" (click)="deleteExpense(expense._id)">
+            Delete
+          </button>
+        </div>
       </div>
     </li>
   </ul>
 
+  <!-- Add Expense Button -->
   <div class="add-expense">
     <button
       class="add-btn"
@@ -24,9 +44,12 @@
       Add Expense
     </button>
   </div>
+
+  <!-- Add/Edit Expense Modal -->
   <div *ngIf="showAddExpenseModal" class="modal">
     <div class="modal-content">
       <h3>{{ editMode ? "Edit Expense" : "Add New Expense" }}</h3>
+
       <form (ngSubmit)="addExpense()">
         <label for="category">Category:</label>
         <input
@@ -47,19 +70,24 @@
         <label for="date">Date:</label>
         <input type="date" [(ngModel)]="newExpense.date" name="date" required />
 
-        <!-- Show warning message below the form if it exceeds the budget -->
+        <!-- Warning Message when the budget is exceeded -->
         <div *ngIf="showWarningMessage" class="warning-message">
           <p>{{ warningMessage }}</p>
-          <button type="button" (click)="confirmAddExpense()">Confirm</button>
-          <button type="button" (click)="cancelAddExpense()">Cancel</button>
+          <div class="warning-actions">
+            <button type="button" (click)="confirmAddExpense()">Confirm</button>
+            <button type="button" (click)="cancelAddExpense()">Cancel</button>
+          </div>
         </div>
 
-        <button *ngIf="!showWarningMessage" type="submit">
-          {{ editMode ? "Update Expense" : "Add Expense" }}
-        </button>
-        <button type="button" (click)="showAddExpenseModal = false">
-          Cancel
-        </button>
+        <!-- Submit Button for Add/Edit -->
+        <div class="submit-actions">
+          <button *ngIf="!showWarningMessage" type="submit">
+            {{ editMode ? "Update Expense" : "Add Expense" }}
+          </button>
+          <button type="button" (click)="showAddExpenseModal = false">
+            Cancel
+          </button>
+        </div>
       </form>
     </div>
   </div>

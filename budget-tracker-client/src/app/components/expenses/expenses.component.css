@@ -94,6 +94,42 @@ ul {
   background-color: #2980b9;
 }
 
+/* Sort Options */
+.sort-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.sort-options label {
+  font-size: 1rem;
+  color: #34495e;
+}
+
+.sort-options select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.sort-options button {
+  padding: 8px 12px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.sort-options button:hover {
+  background-color: #2980b9;
+}
+
 /* Modal Styling */
 .modal {
   position: fixed;
@@ -221,6 +257,23 @@ form button[type="button"]:hover {
   }
 }
 
+/* Toggle Button for Sort Direction */
+.sort-options button {
+  display: inline-block;
+  padding: 10px 15px;
+  background-color: #0400eb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.sort-options button:hover {
+  background-color: #070158;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .expenses-container {
@@ -254,5 +307,10 @@ form button[type="button"]:hover {
   .modal-content {
     width: 90%;
     max-width: 500px;
+  }
+
+  .sort-options {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

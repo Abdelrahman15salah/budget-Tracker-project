@@ -196,7 +196,40 @@ h2 {
 .modal-content button[type="button"]:hover {
   background-color: #c0392b;
 }
+/* Sort Container */
+.sort-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
+.sort-container label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-right: 10px;
+}
+
+.sort-container select {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.sort-container select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.sort-container select:hover {
+  background-color: #e8f4fa;
+}
 /* Responsive Design */
 @media (max-width: 768px) {
   .income-container {

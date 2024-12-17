@@ -38,9 +38,9 @@ export class IncomeComponent implements OnInit {
           return { ...income, date: null }; // Fallback for invalid dates
         }
       });
+      this.sortIncomes(); // Sort incomes after loading
     });
   }
-  
 
   addIncome() {
     const incomeToSave = {
@@ -85,5 +85,22 @@ export class IncomeComponent implements OnInit {
     this.editMode = false;
     this.showAddIncomeModal = false;
   }
-  
+
+  sortOption: string = 'date'; // Default sort option
+
+  sortIncomes() {
+    switch (this.sortOption) {
+      case 'name':
+        this.incomes.sort((a, b) => a.source.localeCompare(b.source));
+        break;
+      case 'date':
+        this.incomes.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        break;
+      case 'amount':
+        this.incomes.sort((a, b) => a.amount - b.amount);
+        break;
+      default:
+        break;
+    }
+  }
 }

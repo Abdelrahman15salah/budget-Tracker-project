@@ -15,14 +15,16 @@ export class ExpensesComponent implements OnInit {
     category: '',
     date: new Date().toISOString().split('T')[0],
   };
-
+  sortKey: string = 'category'; // Default sort key
+  sortDirection: 'asc' | 'desc' = 'asc'; // Default sort direction
+  
   showAddExpenseModal: boolean = false;
   editMode: boolean = false;
   showWarningMessage: boolean = false;
   warningMessage: string = '';
 
   budgets: any[] = [];
-  allowAddExpense: boolean = false; // Flag to allow adding the expense
+  allowAddExpense: boolean = false;
   isConfirmed: boolean = false; // Track if the user has confirmed the budget warning
 
   constructor(
@@ -36,97 +38,65 @@ export class ExpensesComponent implements OnInit {
   }
 
   loadExpenses() {
-    // console.log('Loading expenses...');
     this.expenseService.getExpenses().subscribe((data) => {
-      // console.log('Expenses loaded:', data);
       this.expenses = data.map((expense: any) => ({
         ...expense,
         date: expense.date ? new Date(expense.date) : null,
       }));
+      this.sortExpenses(); // Apply sorting after loading data
     });
   }
 
   loadBudgets() {
-    // console.log('Loading budgets...');
     this.budgetService.getBudgets().subscribe((data) => {
-      // console.log('Budgets loaded:', data);
       this.budgets = data;
     });
   }
 
   exceedsBudget(expenseToSave: { amount: number; category: string; date: string | Date }): boolean {
-    // Find the relevant budget for the month
-    const budget = this.budgets.find(
-      (budget) => budget.month === this.getMonthFromDate(expenseToSave.date)
-    );
-  
-    if (budget) {
-      // console.log('Budget found for month:', budget);
-      const categoryBudget = budget.categories.find(
-        (category: { name: string }) => category.name === expenseToSave.category
-      );
-  
-      if (categoryBudget) {
-        // console.log('Category budget found:', categoryBudget);
-  
-        // Calculate total existing expenses for the category in the month
-        const totalCategoryExpenses = this.expenses
-          .filter(
-            (expense) =>
-              expense.category === expenseToSave.category &&
-              this.getMonthFromDate(expense.date) === this.getMonthFromDate(expenseToSave.date)
-          )
-          .reduce((sum, expense) => sum + expense.amount, 0);
-  
-        // console.log('Total existing expenses for category:', totalCategoryExpenses);
-  
-        // Check if the new expense combined with existing expenses exceeds the limit
-        if (totalCategoryExpenses + expenseToSave.amount > categoryBudget.limit) {
-          // console.log('Expense exceeds category budget limit');
-         
-          
-          this.warningMessage = `You are about to add an expense of $${expenseToSave.amount} for ${expenseToSave.category}, but your total expenses for this category in ${this.getMonthFromDate(expenseToSave.date)} will exceed the budget limit of $${categoryBudget.limit}. Do you want to proceed?`;
-          this.showWarningMessage = true;
-          return true; // Return true if the expense exceeds the budget
-        }
-      }
-    }
-    return false; // Return false if it doesn't exceed the budget
-  }
-  addExpense() {
-    // console.log('Adding expense:', this.newExpense);
+    const budget = this.budgets.find((budget) => budget.month === this.getMonthFromDate(expenseToSave.date));
+    if (!budget) return false;
 
+    const categoryBudget = budget.categories.find((category: { name: string }) => category.name === expenseToSave.category);
+    if (!categoryBudget) return false;
+
+    const totalCategoryExpenses = this.expenses
+      .filter(
+        (expense) =>
+          expense.category === expenseToSave.category &&
+          this.getMonthFromDate(expense.date) === this.getMonthFromDate(expenseToSave.date)
+      )
+      .reduce((sum, expense) => sum + expense.amount, 0);
+
+    if (totalCategoryExpenses + expenseToSave.amount > categoryBudget.limit) {
+      this.warningMessage = `You are about to add an expense of $${expenseToSave.amount} for ${expenseToSave.category}, but your total expenses for this category in ${this.getMonthFromDate(expenseToSave.date)} will exceed the budget limit of $${categoryBudget.limit}. Do you want to proceed?`;
+      this.showWarningMessage = true;
+      return true;
+    }
+
+    return false;
+  }
+
+  addExpense() {
     const expenseToSave = {
       ...this.newExpense,
       date: this.convertDateForBackend(this.newExpense.date),
     };
 
-    // console.log('Converted expense date:', expenseToSave.date);
-
-    // If the user has confirmed, bypass the budget check
     if (this.isConfirmed || !this.exceedsBudget(expenseToSave)) {
-      // Proceed with adding or editing the expense
       if (this.editMode) {
-        // console.log('Editing expense:', this.newExpense._id);
-        // Editing existing expense
-        this.expenseService
-          .editExpense(this.newExpense._id!, expenseToSave)
-          .subscribe(
-            () => {
-              // console.log('Expense edited successfully');
-              this.loadExpenses();
-              this.resetForm();
-            },
-            (error) => {
-              console.error('Error editing expense:', error);
-            }
-          );
+        this.expenseService.editExpense(this.newExpense._id!, expenseToSave).subscribe(
+          () => {
+            this.loadExpenses();
+            this.resetForm();
+          },
+          (error) => {
+            console.error('Error editing expense:', error);
+          }
+        );
       } else {
-        // console.log('Adding new expense');
-        // Adding new expense
         this.expenseService.addExpense(expenseToSave).subscribe(
           () => {
-            // console.log('Expense added successfully');
             this.loadExpenses();
             this.resetForm();
           },
@@ -136,28 +106,24 @@ export class ExpensesComponent implements OnInit {
         );
       }
 
-      // Close modal after add/edit
       this.showAddExpenseModal = false;
-      this.isConfirmed = false; // Reset confirmation flag after adding expense
+      this.isConfirmed = false;
     }
   }
 
   confirmAddExpense() {
-    console.log('Confirming expense addition...');
-    this.isConfirmed = true; // Set confirmation flag to true
-    this.showWarningMessage = false; // Hide the warning message
-    this.addExpense(); // Proceed with adding the expense
+    this.isConfirmed = true;
+    this.showWarningMessage = false;
+    this.addExpense();
   }
 
   cancelAddExpense() {
-    console.log('Canceling expense addition...');
-    this.showWarningMessage = false; // Hide the warning message
-    this.resetForm(); // Reset the form without adding the expense
-    this.isConfirmed = false; // Reset confirmation flag when canceling
+    this.showWarningMessage = false;
+    this.resetForm();
+    this.isConfirmed = false;
   }
 
   editExpense(expense: any) {
-    // console.log('Editing expense:', expense);
     this.showAddExpenseModal = true;
     this.editMode = true;
     this.newExpense = { ...expense };
@@ -165,26 +131,20 @@ export class ExpensesComponent implements OnInit {
   }
 
   deleteExpense(id: string) {
-    // console.log('Deleting expense with ID:', id);
     this.expenseService.deleteExpense(id).subscribe(() => {
-      // console.log('Expense deleted');
       this.loadExpenses();
     });
   }
 
   formatDate(date: Date | string): string {
-    if (!date) return '';
-    if (typeof date === 'string') return date;
-    return new Date(date).toISOString().split('T')[0];
+    return date ? new Date(date).toISOString().split('T')[0] : '';
   }
 
   convertDateForBackend(date: string | Date): string {
-    if (typeof date === 'string') return new Date(date).toISOString();
-    return date ? date.toISOString() : new Date().toISOString();
+    return new Date(date).toISOString();
   }
 
   resetForm() {
-    // console.log('Resetting form...');
     this.newExpense = {
       amount: 0,
       category: '',
@@ -192,8 +152,8 @@ export class ExpensesComponent implements OnInit {
     };
     this.editMode = false;
     this.showAddExpenseModal = false;
-    this.showWarningMessage = false; // Reset warning message
-    this.allowAddExpense = false; // Reset flag
+    this.showWarningMessage = false;
+    this.allowAddExpense = false;
   }
 
   getMonthFromDate(date: string | Date): string {
@@ -201,6 +161,30 @@ export class ExpensesComponent implements OnInit {
     const months = [
       'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
     ];
+
     return months[d.getMonth()];
+  }
+
+  // Sort expenses based on the selected key and direction
+  sortExpenses() {
+    this.expenses.sort((a, b) => {
+      let valueA = a[this.sortKey];
+      let valueB = b[this.sortKey];
+
+      // Handle date sorting
+      if (this.sortKey === 'date') {
+        valueA = new Date(valueA).getTime();
+        valueB = new Date(valueB).getTime();
+      }
+
+      // Sorting direction
+      return this.sortDirection === 'asc' ? valueA - valueB : valueB - valueA;
+    });
+  }
+
+  // Toggle the sort direction
+  toggleSortDirection() {
+    this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    this.sortExpenses();
   }
 }

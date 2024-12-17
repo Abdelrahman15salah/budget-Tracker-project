@@ -1,23 +1,28 @@
 <div class="register-container">
   <h2>Register</h2>
-  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="example-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your email</mat-label>
+        <input
+          matInput
+          formControlName="email"
+          placeholder="pat@example.com"
+          required
+        />
+        <mat-error *ngIf="email?.invalid && email?.touched">
+          {{ errorMessage }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <div>
       <label for="name">Name</label>
       <input
         type="text"
         id="name"
-        [(ngModel)]="user.name"
-        name="name"
-        required
-      />
-    </div>
-    <div>
-      <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        [(ngModel)]="user.email"
-        name="email"
+        formControlName="name"
+        class="form-control"
         required
       />
     </div>
@@ -26,13 +31,11 @@
       <input
         type="password"
         id="password"
-        [(ngModel)]="user.password"
-        name="password"
+        formControlName="password"
         required
+        class="form-control"
       />
     </div>
-    <button type="submit" [disabled]="!registerForm.form.valid">
-      Register
-    </button>
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
   </form>
 </div>

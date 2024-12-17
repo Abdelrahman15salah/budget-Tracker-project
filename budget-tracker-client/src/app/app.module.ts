@@ -18,7 +18,10 @@ import { ChartModule } from 'primeng/chart';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ButtonModule } from 'primeng/button';
 import { BudgetsComponent } from './components/budget/budget.component';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 // import { BudgetComponent } from './budget/budget.component'; 
 
 @NgModule({
@@ -39,8 +42,11 @@ import { BudgetsComponent } from './components/budget/budget.component';
     HttpClientModule , ChartModule,
     ProgressBarModule,
     ButtonModule,
+    ReactiveFormsModule,
+    FormsModule ,
+    MatFormFieldModule,
+    MatInputModule
     
-    FormsModule 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DashboardService,JwtHelperService,  
@@ -50,7 +56,8 @@ import { BudgetsComponent } from './components/budget/budget.component';
         tokenGetter: () => localStorage.getItem('token')  
       }
     },
-    provideHttpClient()  
+    provideHttpClient(),
+    provideAnimationsAsync()  
   ],
   bootstrap: [AppComponent]
 })

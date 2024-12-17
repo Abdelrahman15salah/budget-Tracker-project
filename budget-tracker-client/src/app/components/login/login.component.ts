@@ -2,7 +2,6 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { merge } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +24,6 @@ export class LoginComponent implements OnInit {
       password: this.password,
     });
 
-    // Subscribe to status and value changes
     this.email.statusChanges.subscribe(() => this.updateErrorMessage());
     this.email.valueChanges.subscribe(() => this.updateErrorMessage());
   }

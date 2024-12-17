@@ -1,12 +1,10 @@
 <div class="dashboard-container">
   <h2>Welcome to Your Dashboard</h2>
 
-  <!-- Financial Overview Section -->
   <div class="overview">
     <h3>Financial Overview</h3>
 
     <div class="charts">
-      <!-- Income Chart -->
       <div class="chart">
         <h4>Income</h4>
         <p-chart
@@ -18,7 +16,6 @@
         <p *ngIf="!income || income.length === 0">No income to show.</p>
       </div>
 
-      <!-- Expenses Chart -->
       <div class="chart">
         <h4>Expenses</h4>
         <p-chart
@@ -102,16 +99,13 @@
     </div>
   </div>
 
-  <!-- Report Section -->
   <section class="report-section">
     <h3>Generate Financial Report</h3>
     <button pButton label="Generate Report" (click)="generateReport()"></button>
 
-    <!-- Report Summary -->
     <div *ngIf="report" class="report-summary">
       <h4>Report Summary</h4>
 
-      <!-- Financial Metrics -->
       <div class="report-metrics">
         <div class="metric">
           <h5>Total Income</h5>
@@ -153,7 +147,6 @@
         </div>
       </div>
 
-      <!-- Chart: Income vs Expenses -->
       <div class="chart-container">
         <h4>Income vs Expenses Overview</h4>
         <p-chart

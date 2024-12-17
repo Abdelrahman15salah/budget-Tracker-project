@@ -15,8 +15,8 @@ export class ExpensesComponent implements OnInit {
     category: '',
     date: new Date().toISOString().split('T')[0],
   };
-  sortKey: string = 'category'; // Default sort key
-  sortDirection: 'asc' | 'desc' = 'asc'; // Default sort direction
+  sortKey: string = 'category'; 
+  sortDirection: 'asc' | 'desc' = 'asc'; 
   
   showAddExpenseModal: boolean = false;
   editMode: boolean = false;
@@ -25,7 +25,7 @@ export class ExpensesComponent implements OnInit {
 
   budgets: any[] = [];
   allowAddExpense: boolean = false;
-  isConfirmed: boolean = false; // Track if the user has confirmed the budget warning
+  isConfirmed: boolean = false; 
 
   constructor(
     private expenseService: ExpenseService,
@@ -43,7 +43,7 @@ export class ExpensesComponent implements OnInit {
         ...expense,
         date: expense.date ? new Date(expense.date) : null,
       }));
-      this.sortExpenses(); // Apply sorting after loading data
+      this.sortExpenses(); 
     });
   }
 
@@ -165,24 +165,20 @@ export class ExpensesComponent implements OnInit {
     return months[d.getMonth()];
   }
 
-  // Sort expenses based on the selected key and direction
   sortExpenses() {
     this.expenses.sort((a, b) => {
       let valueA = a[this.sortKey];
       let valueB = b[this.sortKey];
 
-      // Handle date sorting
       if (this.sortKey === 'date') {
         valueA = new Date(valueA).getTime();
         valueB = new Date(valueB).getTime();
       }
 
-      // Sorting direction
       return this.sortDirection === 'asc' ? valueA - valueB : valueB - valueA;
     });
   }
 
-  // Toggle the sort direction
   toggleSortDirection() {
     this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     this.sortExpenses();

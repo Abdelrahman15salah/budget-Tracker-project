@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Dashboard component initialized');
+    // console.log('Dashboard component initialized');
     this.getIncome();
     this.getExpenses();
     this.getSavingsGoal();
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getIncome(): void {
-    console.log('Fetching income data...');
+    // console.log('Fetching income data...');
     this.dashboardService.getIncome().subscribe(
       (data: any[]) => {
         console.log('Income data received:', data);
@@ -79,16 +79,16 @@ export class DashboardComponent implements OnInit {
     console.log('Calculating total income...');
     if (this.income && this.income.length > 0) {
       this.totalIncome = this.income.reduce((sum, incomeItem) => sum + (incomeItem.amount || 0), 0);
-      console.log('Total income:', this.totalIncome);
+      // console.log('Total income:', this.totalIncome);
       this.calculateSavingsProgress();
     } else {
       this.totalIncome = 0;
-      console.log('No income data to calculate total income.');
+      // console.log('No income data to calculate total income.');
     }
   }
 
   prepareIncomeChart(): void {
-    console.log('Preparing income chart...');
+    // console.log('Preparing income chart...');
     const aggregatedIncome: { [key: string]: number } = {};
     this.income.forEach((incomeItem) => {
       if (incomeItem && incomeItem.source) {
@@ -116,7 +116,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getExpenses(): void {
-    console.log('Fetching expense data...');
+    // console.log('Fetching expense data...');
     this.expenseService.getExpenses().subscribe(
       (data: any[]) => {
         console.log('Expense data received:', data);
@@ -136,8 +136,8 @@ export class DashboardComponent implements OnInit {
   }
 
   compareBudgetAndExpenses(): void {
-    console.log('Comparing budget and expenses...');
-    this.categoryStatus = {};  // Reset the category status
+    // console.log('Comparing budget and expenses...');
+    this.categoryStatus = {};  
     this.budget.forEach(budgetItem => {
       const budgetAmount = budgetItem.amount || 0;
       const expenseItem = this.expenses.find(expense => expense.category === budgetItem.category);
@@ -151,23 +151,23 @@ export class DashboardComponent implements OnInit {
         this.categoryStatus[budgetItem.category] = 'On Budget';
       }
     });
-    console.log('Category status:', this.categoryStatus);
+    // console.log('Category status:', this.categoryStatus);
   }
 
   calculateTotalExpenses(): void {
-    console.log('Calculating total expenses...');
+    // console.log('Calculating total expenses...');
     if (this.expenses && this.expenses.length > 0) {
       this.totalExpenses = this.expenses.reduce((sum, expense) => sum + (expense.amount || 0), 0);
-      console.log('Total expenses:', this.totalExpenses);
+      // console.log('Total expenses:', this.totalExpenses);
       this.calculateSavingsProgress();
     } else {
       this.totalExpenses = 0;
-      console.log('No expense data to calculate total expenses.');
+      // console.log('No expense data to calculate total expenses.');
     }
   }
 
   prepareExpenseChart(): void {
-    console.log('Preparing expense chart...');
+    // console.log('Preparing expense chart...');
     const aggregatedExpenses: { [key: string]: number } = {};
     this.expenses.forEach((expenseItem) => {
       if (expenseItem && expenseItem.category) {
@@ -191,14 +191,14 @@ export class DashboardComponent implements OnInit {
         },
       ],
     };
-    console.log('Expense chart data prepared:', this.expenseChartData);
+    // console.log('Expense chart data prepared:', this.expenseChartData);
   }
 
   getSavingsGoal(): void {
-    console.log('Fetching savings goal...');
+    // console.log('Fetching savings goal...');
     this.dashboardService.getSavingsGoal().subscribe(
       (data: any[]) => {
-        console.log('Savings goal data received:', data);
+        // console.log('Savings goal data received:', data);
         if (data && data.length > 0) {
           data.sort((a, b) => new Date(a.deadline).getTime() - new Date(b.deadline).getTime());
           const closestGoal = data[0];
@@ -209,7 +209,7 @@ export class DashboardComponent implements OnInit {
         } else {
           this.savingsGoal = 0;
           this.savingsGoalId = null;
-          console.log('No savings goal found.');
+          // console.log('No savings goal found.');
           this.calculateSavingsProgress();
         }
       },
@@ -231,12 +231,12 @@ export class DashboardComponent implements OnInit {
     } else {
       this.savingsGoalProgress = 0;
     }
-    console.log('Savings progress:', this.savingsGoalProgress);
+    // console.log('Savings progress:', this.savingsGoalProgress);
     this.cdr.detectChanges();
   }
 
   generateReport(): void {
-    console.log('Generating report...');
+    // console.log('Generating report...');
     const incomeVsExpenses = this.totalIncome - this.totalExpenses;
     const budgetVariance = this.totalIncome - this.totalExpenses - this.savingsGoal;
 
@@ -272,7 +272,7 @@ export class DashboardComponent implements OnInit {
   }
 
   finishGoal(): void {
-    console.log('Finishing savings goal...');
+    // console.log('Finishing savings goal...');
     const today = new Date();
     const goalToFinish = {
       name: this.savingsGoalName,
@@ -286,12 +286,12 @@ export class DashboardComponent implements OnInit {
       date: today.toISOString(),
     }).subscribe(
       (expenseResponse) => {
-        console.log('Goal added to expenses:', expenseResponse);
+        // console.log('Goal added to expenses:', expenseResponse);
         if (this.savingsGoalId) {
           this.dashboardService.deleteSavingsGoal(this.savingsGoalId).subscribe(
             (deleteResponse) => {
               console.log('Goal removed from savings goals:', deleteResponse);
-              this.getSavingsGoal();
+              // this.getSavingsGoal();
               this.refreshPageContent();
             },
             (error) => {
@@ -309,7 +309,7 @@ export class DashboardComponent implements OnInit {
   }
 
   refreshPageContent(): void {
-    console.log('Refreshing page content...');
+    // console.log('Refreshing page content...');
     this.getExpenses();
     this.getSavingsGoal();
 
@@ -320,7 +320,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getBudget(): void {
-    console.log('Fetching budget data...');
+    // console.log('Fetching budget data...');
     this.dashboardService.getBudget().subscribe(
       (data: any[]) => {
         console.log('Fetched budget data:', data);
@@ -338,17 +338,17 @@ export class DashboardComponent implements OnInit {
         console.error('Error fetching budget:', error);
       }
     );
-    console.log('Fetched budget data:', this.budget);
+    // console.log('Fetched budget data:', this.budget);
   }
 
   calculateTotalBudget(): void {
-    console.log('Calculating total budget...');
+    // console.log('Calculating total budget...');
     this.totalBudget = 0;
     if (this.budget && this.budget.length > 0) {
       this.budget.forEach(budgetItem => {
         this.totalBudget += budgetItem.amount || 0;
       });
-      console.log('Total budget:', this.totalBudget);
+      // console.log('Total budget:', this.totalBudget);
     } else {
       console.error('Budget data is empty, unable to calculate total budget');
     }
@@ -356,29 +356,27 @@ export class DashboardComponent implements OnInit {
   }
 
   prepareBudgetChartData() {
-    console.log('Preparing budget chart...');
+    // console.log('Preparing budget chart...');
     
-    // Assuming the budgetData is an array of objects with a 'categories' property
     const categories = this.budget.flatMap((budget: any) => budget.categories.map((item: any) => item.name));
     const limits = this.budget.flatMap((budget: any) => budget.categories.map((item: any) => item.limit));
   
-    console.log('Categories:', categories);
-    console.log('Limits:', limits);
+    // console.log('Categories:', categories);
+    // console.log('Limits:', limits);
   
-    // Create the chart data
     this.budgetChartData = {
       labels: categories,
       datasets: [
         {
           data: limits,
           label: 'Budget Limits',
-          backgroundColor: 'rgba(0, 123, 255, 0.5)', // Customize the color if you like
+          backgroundColor: 'rgba(0, 123, 255, 0.5)', 
           borderColor: 'rgba(0, 123, 255, 1)',
           borderWidth: 1
         }
       ]
     };
   
-    console.log('Budget Chart Data Prepared:', this.budgetChartData);
+    // console.log('Budget Chart Data Prepared:', this.budgetChartData);
   }
 }

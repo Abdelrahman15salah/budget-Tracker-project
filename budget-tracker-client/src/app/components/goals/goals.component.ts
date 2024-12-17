@@ -8,8 +8,8 @@ import { GoalService } from '../../services/goal.service';
   standalone:false,
 })
 export class GoalsComponent implements OnInit {
-  goals: any[] = []; // List of goals
-  newGoal = { name: '', targetAmount: 0, deadline: '' }; // Form for adding a goal
+  goals: any[] = []; 
+  newGoal = { name: '', targetAmount: 0, deadline: '' }; 
   isLoading = true;
 new: any;
 
@@ -19,7 +19,7 @@ new: any;
     this.fetchGoals();
   }
 
-  // Fetch goals from the server
+ 
   fetchGoals(): void {
     this.goalService.getGoals().subscribe({
       next: (data) => {
@@ -33,12 +33,12 @@ new: any;
     });
   }
 
-  // Add a new goal
+  
   addGoal() {
     const today = new Date();
     const selectedDate = new Date(this.newGoal.deadline);
   
-    // Check if the deadline is in the past
+    
     if (selectedDate < today) {
       alert('You cannot set a goal date that has already passed.');
       return;
@@ -51,8 +51,8 @@ new: any;
   
     this.goalService.addGoal(this.newGoal).subscribe(
       (goal) => {
-        this.goals.push(goal); // Add the new goal to the list
-        this.newGoal = { name: '', targetAmount: 0, deadline: '' }; // Reset the form
+        this.goals.push(goal); 
+        this.newGoal = { name: '', targetAmount: 0, deadline: '' }; 
         this.fetchGoals();
       },
       (error) => {
@@ -78,10 +78,10 @@ new: any;
     });
   }
   isDeadlineInvalid(): boolean {
-    if (!this.newGoal.deadline) return false; // If no date is selected
+    if (!this.newGoal.deadline) return false; 
     const selectedDate = new Date(this.newGoal.deadline);
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time for accurate comparison
+    today.setHours(0, 0, 0, 0);
     return selectedDate < today;
   }
 }

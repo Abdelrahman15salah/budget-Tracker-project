@@ -1,12 +1,10 @@
 <div class="budget-container">
   <h1>Budget Management</h1>
 
-  <!-- Button to open the modal for adding a new budget -->
   <button (click)="showAddBudgetModal = true" class="btn btn-primary">
     Add Budget
   </button>
 
-  <!-- Budget List -->
   <div class="budget-list">
     <div *ngFor="let budget of budgets" class="budget-item">
       <div class="budget-info">
@@ -17,7 +15,6 @@
           </li>
         </ul>
       </div>
-      <!-- Edit and Delete Buttons -->
       <button (click)="editBudget(budget)" class="btn btn-warning">Edit</button>
       <button (click)="deleteBudget(budget._id)" class="btn btn-danger">
         Delete
@@ -25,12 +22,10 @@
     </div>
   </div>
 
-  <!-- Add/Edit Budget Modal -->
   <div *ngIf="showAddBudgetModal" class="modal-overlay">
     <div class="modal-content">
       <h2>{{ editMode ? "Edit Budget" : "Add Budget" }}</h2>
 
-      <!-- Budget Form -->
       <form (ngSubmit)="addBudget()">
         <div class="form-group">
           <label for="month">Month</label>

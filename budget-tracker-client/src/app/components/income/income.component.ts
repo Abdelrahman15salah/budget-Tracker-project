@@ -35,17 +35,17 @@ export class IncomeComponent implements OnInit {
           return { ...income, date: formattedDate };
         } catch (error) {
           console.error('Error formatting date for income:', income, error);
-          return { ...income, date: null }; // Fallback for invalid dates
+          return { ...income, date: null }; 
         }
       });
-      this.sortIncomes(); // Sort incomes after loading
+      this.sortIncomes(); 
     });
   }
 
   addIncome() {
     const incomeToSave = {
       ...this.newIncome,
-      date: new Date(this.newIncome.date).toISOString(), // Convert to ISO format
+      date: new Date(this.newIncome.date).toISOString(), 
     };
   
     if (this.editMode) {
@@ -80,13 +80,13 @@ export class IncomeComponent implements OnInit {
     this.newIncome = {
       amount: 0,
       source: '',
-      date: new Date().toISOString().split('T')[0],  // Reset to today's date in `yyyy-MM-dd` format
+      date: new Date().toISOString().split('T')[0],  
     };
     this.editMode = false;
     this.showAddIncomeModal = false;
   }
 
-  sortOption: string = 'date'; // Default sort option
+  sortOption: string = 'date'; 
 
   sortIncomes() {
     switch (this.sortOption) {
